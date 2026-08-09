@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jual Akun By Raxcy</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;background:radial-gradient(circle at top,#26344f,#111827 50%,#05070b);color:white}
+.panel{width:100%;max-width:420px;padding:25px;border-radius:22px;background:rgba(20,25,35,.96);border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 60px rgba(0,0,0,.55)}
+.logo{width:70px;height:70px;margin:auto;border-radius:20px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff,#999);color:#111;font-size:25px;font-weight:bold}
+h1{text-align:center;margin-top:15px;font-size:24px}.subtitle{text-align:center;color:#9ca3af;font-size:13px;margin:8px 0 25px}.label{display:block;font-size:14px;font-weight:bold;margin-bottom:9px}
+.upload{display:block;padding:22px;text-align:center;border:2px dashed #4b5563;border-radius:15px;cursor:pointer}.upload input{display:none}.upload-icon{font-size:35px;margin-bottom:8px}.file-name{color:#9ca3af;font-size:12px;margin-top:6px}
+.preview{display:none;margin-top:15px}.preview img{display:block;width:100%;max-height:250px;object-fit:contain;border-radius:15px;background:#080a0f}
+.price-box{margin-top:22px}.price-input{width:100%;padding:15px;border-radius:13px;border:1px solid #374151;outline:none;background:#0b0f16;color:white;font-size:16px}
+.button{width:100%;margin-top:22px;padding:16px;border:none;border-radius:14px;background:linear-gradient(135deg,#fff,#bdbdbd);color:#080808;font-size:16px;font-weight:bold;cursor:pointer}
+.info{text-align:center;color:#6b7280;font-size:11px;margin-top:17px}
+</style>
+</head>
+<body>
+<div class="panel">
+<div class="logo">RX</div>
+<h1>JUAL AKUN BY RAXCY</h1>
+<div class="subtitle">Isi data akun yang ingin kamu jual</div>
+<label class="label">1. Masukkan Foto Akun</label>
+<label class="upload">
+<input type="file" id="foto" accept="image/*">
+<div class="upload-icon">📷</div>
+<div>Klik untuk memilih foto akun</div>
+<div class="file-name" id="fileName">Belum ada foto dipilih</div>
+</label>
+<div class="preview" id="preview"><img id="previewImage" alt="Preview foto akun"></div>
+<div class="price-box">
+<label class="label">2. Mau Jual Harga Berapa?</label>
+<input class="price-input" type="number" id="harga" placeholder="Contoh: 150000" min="1">
+</div>
+<button class="button" id="kirimButton" type="button">📤 KIRIM KE ADMIN</button>
+<div class="info">Admin WhatsApp: 082373843282</div>
+</div>
+<script>
+const fotoInput=document.getElementById("foto");
+const preview=document.getElementById("preview");
+const previewImage=document.getElementById("previewImage");
+const fileName=document.getElementById("fileName");
+fotoInput.addEventListener("change",function(){
+ const file=this.files[0]; if(!file)return;
+ if(!file.type.startsWith("image/")){alert("File yang dipilih harus berupa gambar!");this.value="";return;}
+ fileName.textContent=file.name;
+ const reader=new FileReader();
+ reader.onload=e=>{previewImage.src=e.target.result;preview.style.display="block";};
+ reader.readAsDataURL(file);
+});
+document.getElementById("kirimButton").addEventListener("click",function(){
+ const foto=fotoInput.files[0];
+ const harga=document.getElementById("harga").value.trim();
+ if(!foto){alert("Silakan masukkan foto akun terlebih dahulu!");return;}
+ if(!harga||Number(harga)<=0){alert("Silakan masukkan harga jual terlebih dahulu!");return;}
+ const hargaFormatted=Number(harga).toLocaleString("id-ID");
+ const pesan=`Halo Admin Raxcy 👋
+
+Saya ingin menjual akun.
+
+💰 Harga jual: Rp ${hargaFormatted}
+
+📸 Foto akun sudah saya siapkan.
+
+Mohon dicek ya min.`;
+ const nomorAdmin="6282373843282";
+ const whatsappURL="https://wa.me/"+nomorAdmin+"?text="+encodeURIComponent(pesan);
+ window.location.href=whatsappURL;
+});
+</script>
+</body>
+</html>
